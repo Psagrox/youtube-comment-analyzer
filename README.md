@@ -108,7 +108,7 @@ You can deploy the backend using Firebase Functions or other hosting services li
 
 ## Web-live
 
-![Web-live](https://comment-analyzer-2ff73.web.app/)
+[Web-live](https://comment-analyzer-2ff73.web.app/)
 
 ## Contributing
 
