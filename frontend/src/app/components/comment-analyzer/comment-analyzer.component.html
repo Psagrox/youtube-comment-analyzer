@@ -1,0 +1,13 @@
+<div>
+  <h2>YouTube Comment Analyzer</h2>
+  <input [(ngModel)]="videoUrl" placeholder="Enter YouTube Video URL" />
+  <button (click)="analyzeComments()">Analyze Comments</button>
+</div>
+
+<div *ngIf="analysisResult">
+  <h3>Analysis Result</h3>
+  <p>Average Polarity: {{ analysisResult.avg_polarity }}</p>
+  <p>Sentiment: {{ analysisResult.sentiment }}</p>
+  <p>Most Positive Comment: {{ analysisResult.most_positive_comment }}</p>
+  <p>Most Negative Comment: {{ analysisResult.most_negative_comment }}</p>
+</div>
