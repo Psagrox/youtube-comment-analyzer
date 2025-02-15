@@ -1,13 +1,62 @@
-<div>
-  <h2>YouTube Comment Analyzer</h2>
-  <input [(ngModel)]="videoUrl" placeholder="Enter YouTube Video URL" />
-  <button (click)="analyzeComments()">Analyze Comments</button>
-</div>
+<div class="container">
+  <!-- Encabezado con logo y título -->
+  <div class="header">
+    <img src="https://img.icons8.com/?size=100&id=115362&format=png&color=000000" alt="YouTube Logo" class="logo" />
+    <h1>YouTube Comment Analyzer</h1>
+  </div>
 
-<div *ngIf="analysisResult">
-  <h3>Analysis Result</h3>
-  <p>Average Polarity: {{ analysisResult.avg_polarity }}</p>
-  <p>Sentiment: {{ analysisResult.sentiment }}</p>
-  <p>Most Positive Comment: {{ analysisResult.most_positive_comment }}</p>
-  <p>Most Negative Comment: {{ analysisResult.most_negative_comment }}</p>
+  <!-- Entrada de URL y botón -->
+  <div class="input-container">
+    <mat-form-field appearance="outline" class="url-input">
+      <mat-label>Enter YouTube Video URL</mat-label>
+      <input matInput [value]="videoUrl" (input)="onInputChange($event)" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="analyzeComments()" [disabled]="isLoading">
+      Analyze Comments
+    </button>
+  </div>
+
+  <!-- Mensaje de carga -->
+  <div *ngIf="isLoading" class="loading">
+    <mat-spinner diameter="40"></mat-spinner>
+    <span>Analyzing comments...</span>
+  </div>
+
+  <!-- Resultados del análisis -->
+  <div *ngIf="analysisResult" class="results">
+    <h2>Analysis Result</h2>
+    <div class="result-item">
+      <p><strong>Average Polarity:</strong> {{ analysisResult.avg_polarity }}</p>
+      <p>
+        <strong>Sentiment:</strong>
+        <span
+          [ngClass]="{'positive': analysisResult.sentiment === 'positive', 'negative': analysisResult.sentiment === 'negative'}">
+          {{ analysisResult.sentiment }}
+        </span>
+      </p>
+      <p>
+        <span class="emoji">😊</span>
+        <strong>Most Positive Comment:</strong>
+        {{ analysisResult.most_positive_comment }}
+      </p>
+      <p>
+        <span class="emoji">😠</span>
+        <strong>Most Negative Comment:</strong>
+        {{ analysisResult.most_negative_comment }}
+      </p>
+    </div>
+
+    <!-- Gráfico de barras -->
+    <div class="chart-container">
+      <h3>Polarities of Comments</h3>
+      <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="'bar'">
+      </canvas>
+    </div>
+
+    <!-- Nube de palabras -->
+    <div *ngIf="wordcloudImage" class="wordcloud-container">
+      <h3>Word Cloud</h3>
+      <img [src]="'data:image/png;base64,' + wordcloudImage" alt="Word Cloud" />
+    </div>
+  </div>
 </div>

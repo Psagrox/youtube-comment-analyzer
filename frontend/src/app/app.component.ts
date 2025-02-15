@@ -1,17 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { CommentAnalyzerComponent } from './components/comment-analyzer/comment-analyzer.component';
 import { CommonModule } from '@angular/common';
-
+import { CommentAnalyzerComponent } from './components/comment-analyzer/comment-analyzer.component';
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [
-    RouterOutlet,
     CommonModule,
     CommentAnalyzerComponent,
   ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  template: '<app-comment-analyzer></app-comment-analyzer>'
 })
 export class AppComponent {
   title = 'youtube-comment-analyzer';
