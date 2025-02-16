@@ -6,7 +6,7 @@ import { catchError, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class YoutubeService {
-  private apiUrl = 'http://127.0.0.1:5000';
+  private apiUrl = 'https://my-backend-701783693010.us-central1.run.app';
 
   private http = inject(HttpClient);
 

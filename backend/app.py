@@ -1,5 +1,6 @@
 import base64
 from io import BytesIO
+import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from googleapiclient.discovery import build
@@ -17,10 +18,12 @@ import nltk
 app = Flask(__name__)
 CORS(app)  # Esto permite las peticiones desde tu frontend de Angular
 
-API_KEY = (
-    "AIzaSyAqzHzWTWOZgvMQlfoTGaEhThsQCOrT_3E"  # Reemplaza con tu API key de YouTube
-)
 
+API_KEY = os.getenv("YOUTUBE_API_KEY")
+
+@app.route("/")
+def home():
+    return "¡Hola, Docker y Flask están funcionando correctamente!"
 
 def extract_video_id(url):
     # Extraer el ID del video de diferentes formatos de URL de YouTube
@@ -215,4 +218,4 @@ def analyze():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
